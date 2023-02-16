@@ -1,0 +1,68 @@
+- name: my first playbook
+  hosts: all
+  become: yes
+  # vars:
+  #   my_list:
+  #   - { dir: "sucho1", file: "suchoFileA"}
+  #   - { dir: "sucho2", file: "suchoFileB"}
+  #   - { dir: "sucho3", file: "suchoFileC"}
+  #   - { dir: "sucho4", file: "suchoFileD"}
+  tasks:
+
+  # 1.
+  # - name: create some directories in a sucho dir
+  #   file:
+  #     path: /tmp/sucho/{{ item }}
+  #     state: directory
+  #     recurse: yes
+  #   with_items:
+  #   - sucho1
+  #   - sucho2
+  #   - sucho3
+  #   - sucho4
+
+  # 2.
+  # - name: create dirs and files into it
+  #   file:
+  #     path: /tmp/sucho/{{ item.dir }}/{{ item.file }}
+  #     state: touch
+  #   with_items:
+  #   - { dir: "sucho1", file: "suchoFileA"}
+  #   - { dir: "sucho2", file: "suchoFileB"}
+  #   - { dir: "sucho3", file: "suchoFileC"}
+  #   - { dir: "sucho4", file: "suchoFileD"}
+
+  # 3.
+  # - name: create dirs and files into it
+  #   file:
+  #     path: /tmp/sucho/{{ item.dir }}/{{ item.file }}
+  #     state: touch
+  #   with_items:
+  #   - "{{ my_list }}"
+
+
+  # 4.
+  # - name: create dires and files into it
+  #   file:
+  #     path: /tmp/{{ item | basename }}
+  #     state: touch
+  #   with_fileglob:
+  #   - files/file*.yml
+
+  # 5.
+  # - name: create dires and files into it
+  #   file:
+  #     path: /tmp/sucho/{{ item }}
+  #     state: touch
+  #   with_items:
+  #   - "{{ groups['all']}}"
+
+  # 5-2.
+  - name: create dires and files into it
+    file:
+      path: /tmp/sucho/{{ item }}
+      state: touch
+    with_inventory_hostnames:
+    - all
+    - webserver
+    - hostname
