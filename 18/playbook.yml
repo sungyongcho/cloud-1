@@ -1,0 +1,45 @@
+- name: this is my first playbook
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: generate SSH key"
+    community.crypto.openssh_keypair:
+      path: /tmp/sucho
+      type: rsa
+      size: 4096
+      state: present
+      force: no
+
+- name: this is my second playbook
+  hosts: all
+  become: yes
+  tasks:
+  - name: create devops user
+    user:
+      name: devops
+      shell: /bin/bash
+      groups: sudo
+      append: yes
+      password: "{{ 'password' | password_hash('sha512') }}"
+
+  - name: Add devops user to the sudoers
+    copy:
+      dest: "/etc/sudoers.d/devops"
+      content: "devops ALL=(ALL) NOPASSWD: ALL"
+      force: yes
+
+  - name: Deploy SSH Key
+    ansible.posix.authorized_key:
+      user: devops
+      state: present
+      key: "{{ lookup('file', '/tmp/sucho.pub') }}"
+
+example
+  - name: Set authorized key, removing all the authorized keys already set
+    ansible.posix.authorized_key:
+      user: root
+      key: '{{ item }}'
+      state: present
+      exclusive: True
+    with_file:
+      - public_keys/doe-jane
