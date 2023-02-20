@@ -1,0 +1,31 @@
+- name: my first playbook
+  hosts: all
+  #3
+  gather_facts: no
+  tasks:
+
+  #tasks:
+  # 1.
+  # - name: debug of facts
+  #   debug:
+  #     var: ansible_facts
+
+  # 2.
+  # - name: setup module
+  #   setup:
+  #     filter: "ansible_user*"
+  #   register: __our_facts
+
+  # - name: debug __our_facts
+  #   debug:
+  #     var: __our_facts
+
+  # 3.
+  - name: debug __our_facts
+    debug:
+      var: ansible_facts
+
+  - name: hostname
+    debug:
+      var: ansible_hostname
+
