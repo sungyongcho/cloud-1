@@ -1,0 +1,28 @@
+- name: my first playbook
+  hosts: all
+  become: yes
+  tasks:
+
+  # 1.
+  # - name: test unarchive
+  #   unarchive:
+  #     src: source/node_exporter-1.0.1.linux-amd64.tar.gz
+  #     dest: /home/scho/
+
+  # 2.
+  # - name: test unarchaive
+  #   unarchive:
+  #     src: https://github.com/prometheus/node_exporter/releases/download/v1.0.1/node_exporter-1.0.1.linux-amd64.tar.gz
+  #     dest: /home/scho/
+  #     remote_src: yes
+  #     validate_certs: no
+
+  - name: test unarchive
+    get_url:
+      url: https://downloads.apache.org/tomcat/tomcat-10/v10.1.5/src/apache-tomcat-10.1.5-src.tar.gz
+      dest: /opt/tomcat10
+      mode: 755
+      checksum: sha512:d52cf7fd4c4982b7934cd14000e540998cf2599a730083c7647d57939993f3522b6d208a82cdfcb0f7ffc084d9d2ea2b27104203398a61bb765667d97fc13c02
+      validate_certs: no
+      group: scho
+      owner: scho

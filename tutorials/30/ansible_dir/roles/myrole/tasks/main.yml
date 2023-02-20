@@ -1,0 +1,10 @@
+---
+# tasks file for roles/myrole
+
+- name: set fact
+  set_fact:
+    myvar: "I'm set with set_fact"
+
+- name: debug task
+  debug:
+    var: myvar

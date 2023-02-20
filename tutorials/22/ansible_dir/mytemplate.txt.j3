@@ -1,0 +1,4 @@
+#{{ template_run_date }} - "{{ ansible_managed }}" via {{ template_uid }}@{{ template_host }}
+Hello {{ var1 }}
+I'm {{ item.name }}
+and I'm {{ item.age }} years old

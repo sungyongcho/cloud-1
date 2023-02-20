@@ -1,0 +1,63 @@
+- name: my first playbook
+  hosts: all
+  become: yes
+  tasks:
+  # 1.
+  # - name: lineinfile
+    # lineinfile:
+    #   dest: /tmp/test.conf
+    #   line: "hello world"
+    #   state: present
+    #   create: True
+
+  # 2.
+  # - name: lineinfile
+  #   lineinfile:
+  #     dest: /tmp/test.conf
+  #     line: "test 2"
+  #     regexp: "^test$"
+  #     create: True
+
+  # 3.
+  # - name: lineinfile
+  #   lineinfile:
+  #     dest: /tmp/test.conf
+  #     line: 'this is the line: \1'
+  #     regexp: "^test ([0-2])$"
+  #     backrefs: yes
+  #     state: present
+  #     create: True
+
+  # 4.
+  # - name: lineinfile
+  #   lineinfile:
+  #     dest: /tmp/test.conf
+  #     line: '# \1'
+  #     regexp: "(^i am the number: [0-2])"
+  #     backrefs: yes
+  #     state: present
+  #     create: True
+
+  # 5.
+  # - name: lineinfile
+  #   lineinfile:
+  #     dest: /tmp/test.conf
+  #     line: "Start"
+  #     insertbefore: '# i am the number: [0-2]'
+  #     state: present
+  #     create: True
+
+  # 5. removing a line
+  - name: lineinfile
+    lineinfile:
+      dest: /tmp/test.conf
+      regexp: "^hello world"
+      state: absent
+
+  # 6. to backup before changing the file
+  - name: lineinfile
+    lineinfile:
+      dest: /tmp/test.conf
+      regexp: "^#"
+      state: absent
+      backup: yes

@@ -1,0 +1,68 @@
+# - name: my frist playbook
+#   hosts: all
+#   tasks:
+#   - name: create a file on target server
+#     file:
+#       path: /tmp/i_am_on_target_server.txt
+#       state: touch
+#   # 1.
+#   # - name: create a sucho file on localhost with delegation
+#   #   file:
+#   #     state: touch
+#   #     path: /tmp/sucho.txt
+#   #   delegate_to: localhost
+
+#   # 2.
+#   - name: create a sucho file on localhost with delegation
+#     file:
+#       state: touch
+#       path: /tmp/{{ inventory_hostname }}.txt
+#     delegate_to: localhost
+
+
+# 3.
+# - name: my frist playbook
+#   hosts: all
+#   tasks:
+
+#   - name: debug
+#     debug:
+#       var: var1
+#   - name:
+#     debug:
+#       var: var1
+#     delegate_to: localhost
+
+# 4. run_once
+# - name: my frist playbook
+#   hosts: all
+#   tasks:
+#   - name: create a file on target server
+#     file:
+#       path: /tmp/i_am_on_target_server.txt
+#       state: touch
+#   - name: create a sucho file on localhost with delegation
+#     file:
+#       state: touch
+#       path: /tmp/sucho.txt
+#     run_once: yes
+#     delegate_to: localhost
+
+# 5. local connection
+# - name: my first playbook
+#   hosts: localhost
+#   tasks:
+
+#   - name: local action
+#     local_action: "command touch /tmp/sucho2.txt"
+
+# 6. local connetion 2
+- name: my first playbook
+  hosts: localhost
+  connection: local # important -- without ssh connection
+  tasks:
+
+  - name: local action
+    file:
+      state: touch
+      path: /tmp/sucho3.txt

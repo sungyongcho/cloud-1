@@ -1,0 +1,24 @@
+- name: my first playbook
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: install haproxy
+    apt:
+      name: haproxy
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+
+  - name: stat haproxy
+    systemd:
+      name: haproxy
+      state: started
+      enabled: yes # to start the service at the boot
+                  # to check (on vm) `sudo systemctl list-unit-files | grep haproxy
+      daemon-reload: yes # to reload the daemon and start the service if necessary
+
+  # just to do a daemon-reload
+  # - name: just to do a daemon-reload
+  #   systemd:
+  #     daemon-reload: yes

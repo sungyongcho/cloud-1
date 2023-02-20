@@ -1,0 +1,43 @@
+- name: my first playbook
+  hosts: all
+  # 1.
+  # vars:
+  #   var1: "Sucho!!!!!"
+  # tasks:
+
+  # - name: my template
+  #   template:
+  #     src: mytemplate.txt.j2
+  #     dest: /tmp/hello.txt
+  #     owner: scho
+  #     group: scho
+  #     mode: 0755
+  #     backup: yes
+
+  # 2.
+  # vars:
+  #   var1: "Sucho !!!"
+  #   var2:
+  #     - { name: "sucho", age: "99" }
+  #     - { name: "scho", age: "88" }
+  #     - { name: "sungyong", age: "77" }
+  # tasks:
+  # - name: template
+  #   template:
+  #     src: mytemplate.txt.j3
+  #     dest: "/tmp/hello_{{ item.name }}.txt"
+  #   with_items:
+  #   - "{{ var2 }}"
+
+  # 3.
+  vars:
+    var1: "Sucho !!!"
+    var2:
+      - { name: "sucho", age: "11" }
+      - { name: "scho", age: "22" }
+      - { name: "sungyong", age: "33" }
+  tasks:
+  - name: template
+    template:
+      src: mytemplate.txt.j4
+      dest: "/tmp/hello_all.txt"

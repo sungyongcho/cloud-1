@@ -1,0 +1,7 @@
+- name: my first playbook
+  hosts: all
+  vars:
+                                      # highest: ansible-playbook -i ./00_inventory.yml -e "myvar='The ultimate level'" ./playbook.yml
+    myvar: "I'm in the playbook vars" # set-fact -> roles -> playbook -> host_vars -> group_vars order
+  roles:
+  - myrole
