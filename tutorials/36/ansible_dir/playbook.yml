@@ -1,0 +1,40 @@
+- name: my first playbook
+  hosts: all
+  # 1-2.
+  # environment:
+  #   PATHLIB: "/var/lib" ## vriable will be set only for ansible run
+  # 3.
+  # vars_prompt:
+  #   - name: name
+  # 4.
+  vars_prompt:
+  - name: environment_api
+    prompt: "Which environment ? prod/stage/dev"
+    default: testing
+  tasks:
+
+  # 1.
+  # - name: echo
+  #   shell: echo $PATHLIB
+  #   register: __output
+
+  # 2. use env bars from the ansible server (host)
+  # - name: echo
+  #   # shell: "echo {{ lookup('env', 'ENV')}}"
+  #   shell: "echo {{lookup('env', 'ENV') | default('satge', True) }}" # setting default value
+  #   register: __output
+
+  # 3. to use a prompt
+  # - name: echo
+  #   shell: "echo Hello {{ name }}"
+  #   register: __output
+
+  # 4.
+  - name: echo
+    shell: echo {{ environment_api }}
+    register: __output
+
+  - name: debug
+    debug:
+      var: __output
+
