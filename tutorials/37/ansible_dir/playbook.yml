@@ -1,0 +1,47 @@
+- name: my first playbook
+  hosts: all
+  tasks:
+
+  # 1. truncate -s 1G sucho.txt
+  # - name: ensure rsync installed
+  #   apt:
+  #     name: rsync
+  #     state: present
+  #   become: yes
+
+  # - name: sync
+  #   synchronize:
+  #     src: sucho.txt
+  #     dest: /tmp/sucho.txt
+
+  # 2.
+  # mkdir -p files; for i in $(seq 1000);do touch files/$i;done
+  # - name: dir
+  #   file:
+  #     path: /tmp/files
+  #     state: directory
+  # - name: sync
+  #   synchronize:
+  #     src: files/
+  #     dest: /tmp/files
+
+  # 3.
+  - name: dir
+    file:
+      path: /tmp/sources
+      state: directory
+
+  - name: copy
+    copy:
+      src: "files/{{ item }}"
+      dest: /tmp/sources
+    with_items:
+    - t1
+    - t2
+    - t3
+
+  - name: test assemble
+    assemble:
+      delimiter: "---"
+      src: /tmp/sources
+      dest: /tmp/myconf.cfg
