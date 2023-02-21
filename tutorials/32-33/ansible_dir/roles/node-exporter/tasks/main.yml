@@ -22,13 +22,23 @@
     owner: "{{ node_exporter_user }}"
     group: "{{ node_exporter_group }}"
 
+#33 added
+- name: if node exporter exists get version
+  shell: "cat /etc/systemd/system/node_exporter.service | grep Version | sed s/'.*Version '//g"
+  when: __check_node_exporter_present.stat.exists == true # check 'register' on top
+  changed_when: false
+  register: __get_node_exporter_version
+#33 added
+
 - name: download and unzip node exporter if not exist
   unarchive:
     src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version }}/node_exporter-{{ node_exporter_version }}.linux-amd64.tar.gz"
     dest: /tmp/
     remote_src: yes
     validate_certs: no
-  when: __check_node_exporter_present.stat.exists == false
+  #32-when: __check_node_exporter_present.stat.exists == false
+  #33
+  when: __check_node_exporter_present.stat.exists == false or not __get_node_exporter_version.stdout == node_exporter_version
 
 - name: move the binary to the final destination
   copy:
@@ -38,7 +48,9 @@
     group: "{{ node_exporter_group }}"
     mode: 0755
     remote_src: yes
-  when: __check_node_exporter_present.stat.exists == false
+  #32-when: __check_node_exporter_present.stat.exists == false
+  #33
+  when: __check_node_exporter_present.stat.exists == false or not __get_node_exporter_version.stdout == node_exporter_version
 
 - name: clean
   file:
