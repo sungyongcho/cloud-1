@@ -1,0 +1,63 @@
+- name: our first playbook
+  hosts: all
+  tasks:
+
+  # 1.
+  # - name: uri
+  #   uri:
+  #     url: http://xavki.blog
+  #     method: GET
+  #     validate_certs: false
+  #     status_code: 200 # or [200, ...]
+
+  # 2. check multiple status code and POST request <- this will fail  # - name: uri
+  #   uri:
+  #     url: https://httpbin.org/status/500
+  #     method: POST
+  #     status_code: [200, 201, 301, 500]
+  #     validate_certs: false
+
+  # 3.
+  # - name: uri
+  #   uri:
+  #     url: http://httpbin.org/get
+  #     return_content: yes
+  #     method: GET
+  #   register: __content
+
+  # - name: debug
+  #   debug:
+  #     var: __content.content
+
+  # 4.
+  # - name: uri
+  #   uri:
+  #     url: http://httpbin.org/get
+  #     method: GET
+  #     return_content: yes
+  #     validate_certs: false
+  #     body_format: json
+  #   register: __body
+
+  # - name: debug
+  #   debug:
+  #     var: __body.json.url # or __body for whole
+
+  # 5.
+  # - name: uri
+  #   uri:
+  #     url: http://xavki.blog
+  #     method: GET
+  #     return_content: yes
+  #     validate_certs: false
+  #   register: __content
+  #   failed_when: " 'xavki' in __content.content"
+
+  # 6. basic auth
+  - name: url
+    uri:
+      url: https://httpbin.org/basic-auth/toto/test
+      user: "toto"
+      password: "test"
+      method: GET
+      validate_certs: false

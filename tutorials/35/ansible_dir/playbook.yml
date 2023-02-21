@@ -1,0 +1,56 @@
+- name: our first playbook
+  hosts: all
+  tasks:
+
+  # 1.
+  # - name: test
+  #   command:
+  #     cmd: ls
+  #     chdir: /etc/
+  #   register: __output
+
+
+  # 2. add a list of arguments
+  # - name: test
+  #   command:
+  #     argv:
+  #     - ls
+  #     - -larth
+  #   register: __output
+
+  # 3.
+  # - name: touch
+  #   file:
+  #     path: /tmp/sucho
+  #     state: touch
+  # - name: test
+  #   command:
+  #     cmd: ls -lath /tmp
+  #     #creates: /tmp/sucho # don't want to run the command if the file exists
+  #     removes: /tmp/sucho # remove file
+  #   register: __output
+
+
+  # 4.
+  #  - name: test
+  #    shell: cat /etc/hosts | grep 127
+  #    register: __output
+
+  # 5.
+  #  - name: test
+  #    shell: | # concats output
+  #      cat /etc/hosts
+  #      ls /etc/
+  #    register: __output
+
+
+  # 6.
+  - name: test
+    shell: echo "Hello $MAVAR"
+    environment:
+      MAVAR: "sucho"
+    register: __output
+
+  - name: debug
+    debug:
+      var: __output
