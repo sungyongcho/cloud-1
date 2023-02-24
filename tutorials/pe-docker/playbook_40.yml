@@ -1,0 +1,83 @@
+- name: my frist playbook
+  hosts: all
+  tasks:
+
+  # 1.
+  # - name: install docker sdk
+  #   apt:
+  #     name: python3-docker
+  #     update_cache: yes
+  #     cache_valid_time: 3600
+  #   become: yes
+
+  # 2.
+  # - name: pull an image
+  #   community.docker.docker_image:
+  #     name: alpine
+  #     tag: latest
+  #     source: pull
+
+  # 3. to retag an image
+  # - name: pull an image
+  #   community.docker.docker_image:
+  #     name: alpine
+  #     tag: latest
+  #     source: local
+  #     repository: myregistry/myimage:v1.0
+
+  # 4. import wit a tar file
+  # - name: copy image
+  #   copy:
+  #     src: image.test.v1.0.tar
+  #     dest: /tmp/
+
+  # - name: pull an image
+  #   community.docker.docker_image:
+  #     name: archive
+  #     tag: v1.0
+  #     load_path: /tmp/image.test.v1.0.tar
+  #     source: load
+
+
+  # 5. build an image from a Dockerfile
+  # - name: copy Files
+  #   file:
+  #     path: /tmp/build
+  #     state: directory
+
+  # - name: copy image
+  #   copy:
+  #     src: app/
+  #     dest: /tmp/build
+
+  # - name: build
+  #   docker_image:
+  #     name: imgbuild
+  #     tag: v1.0
+  #     source: build
+  #     build:
+  #       path: /tmp/build/
+  #       dockerfile: Dockerfile
+  #       cache_from:
+  #       - alpine:3.9
+
+  # 6. did not run
+  # https://www.youtube.com/watch?v=O79Pwy2SEjg&list=PLWZKNB9waqIXEL-NIapWwIADPtkspe9vk&index=41&t=1480s
+  - name: docker login
+    community.docker.docker_login:
+      registry_url: registry.gitlab.com
+      username: scho
+      password: "{{ vault_token_github }}"
+      reauthorize: yes
+  - name: build
+    community.docker.docker_image:
+      build:
+        path: /tmp/build
+        dockerfile: Dockerfile
+        pull: yes
+        cache_from:
+        - alpine:3.9
+      source: build
+      push: yes
+      name: registry.gitlab.com/xavki/testflux
+      tag: v1.1

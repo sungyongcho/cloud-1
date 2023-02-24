@@ -1,0 +1,79 @@
+- name: my frist playbook
+  hosts: all
+  tasks:
+
+  - name: install docker sdk
+    apt:
+      name: python3-docker
+      update_cache: yes
+      cache_valid_time: 3600
+    become: yes
+
+  # 1.
+  # - name: copy files
+  #   file:
+  #     path: /tmp/build
+  #     state: directory
+  # - name: copy image
+  #   copy:
+  #     src: app/
+  #     dest: /tmp/build
+  # - name: build
+  #   community.docker.docker_image:
+  #     name: imgbuild
+  #     tag: v1.0
+  #     source: build
+  #     build:
+  #       pull: yes
+  #       path: /tmp/build
+  #       dockerfile: Dockerfile
+  #       cache_from:
+  #       - alpine:3.9
+  # - name: run
+  #   community.docker.docker_container:
+  #     name: c1
+  #     image: imgbuild:v1.0
+  #     state: started
+
+  # with specific command
+  # - name: run
+  #   community.docker.docker_container:
+  #     name: c1
+  #     image: ubuntu:latest
+  #     state: started
+  #     detach: no
+  #     command: sleep 10
+
+  # # 2.
+  # - name: run
+  #   community.docker.docker_container:
+  #     name: c1
+  #     image: imgbuild:v1.0
+  #     state: started
+  #     ports:
+  #     - 8888:8080
+
+  # 3. to add a test
+  # - name: wait for instance
+  #   uri:
+  #     url: "http://127.0.0.1:8888/"
+  #     status_code: 200
+  #   register: result
+  #   until: result.status == 200
+  #   retries: 200
+  #   delay: 1
+
+  # 4. specific healthcheck
+  - name: run
+    community.docker.docker_container:
+      name: c1
+      image: imgbuild:v1.0
+      state: started
+      ports:
+      - 8888:8080
+      healthcheck:
+        test: ["CMD", "curl", "http://127.0.0.1:8080"]
+        interval: 5s
+        timeout: 10s
+        retries: 3
+        start_period: 10s

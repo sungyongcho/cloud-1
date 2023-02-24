@@ -1,0 +1,73 @@
+- name: my frist playbook
+  hosts: all
+  tasks:
+
+  - name: install docker sdk
+    apt:
+      name: python3-docker
+      update_cache: yes
+      cache_valid_time: 3600
+    become: yes
+
+  ## network
+  # 1.
+  # - name: create network sucho
+  #   docker_network:
+  #     name: sucho
+
+  # 2. to add a container to a network
+  # - name: create network sucho
+  #   docker_network:
+  #     name: sucho
+  #     connected:
+  #     - c1
+  # # - name: run
+  # #   docker_container:
+  # #     name: c1
+  # #     image: myapp:v1.1
+  # #     state: started
+  # #     networks:
+  # #     - name: sucho
+
+  # 3. too add another network on c1 container
+  # - name: create network sucho2
+  #   docker_network:
+  #     name: sucho2
+  #     append: yes
+  #     connected:
+  #     - c1
+
+  # 4. to define the network
+  # - name: create network sucho
+  #   docker_network:
+  #     name: sucho
+  #     connected:
+  #     - c1
+  #     ipam_config:
+  #     - subnet: 172.13.12.0/24
+  #       gateway: 172.13.12.1
+  #       iprange: 172.13.12.0/24
+
+  ## volume
+  # 1.
+  # - name: Create a volume
+  #   docker_volume:
+  #     name: sucho_data
+  #     state: present
+
+  # 2.
+  # - name: Create a volume
+  #   docker_volume:
+  #     name: sucho_data
+  #     recreate: always
+  #     driver: local
+  #     driver_options:
+  #       o: bind
+  #       type: none
+  #       device: /tmp/data
+
+  # 3. remove a volume
+  - name: Create a volume
+    docker_volume:
+      name: sucho_data
+      state: absent

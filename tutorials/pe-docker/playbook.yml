@@ -1,0 +1,10 @@
+- name: my frist playbook
+  hosts: all
+  tasks:
+
+  - name: install docker sdk
+    apt:
+      name: python3-docker
+      update_cache: yes
+      cache_valid_time: 3600
+    become: yes

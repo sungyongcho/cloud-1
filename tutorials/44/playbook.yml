@@ -1,0 +1,65 @@
+- name: my frist playbook
+  hosts: all
+  tasks:
+
+  - name: Install docker-compose
+    pip:
+      name: docker-compose
+
+  # - name: copy docker-compose.yml
+  #   copy:
+  #     src: app/
+  #     dest: tmp/
+
+  # 2.
+  # - name: test docker-compose
+  #   docker_compose:
+  #     project_src: tmp/
+  #     state: present
+  #   register: __docker_compose
+
+  # - name: debug
+  #   debug:
+  #     var: __docker_compose
+
+  # 3.
+  # - name: test docker-compose
+  #   docker_compose:
+  #     project_src: tmp/
+  #     state: present
+  #     scale:
+  #       app: 4
+
+  # 4. remove
+  # - name: test docker-compose
+  #   docker_compose:
+  #     project_src: tmp/
+  #     state: absent
+
+  # 5. to define the compose file in the ansible code
+  # - name: test docker-compose
+  #   docker_compose:
+  #     project_name: mynginx
+  #     # project_src: tmp/
+  #     definition:
+  #       version: "3.7"
+  #       services:
+  #         app:
+  #           image: nginx:latest
+
+  # 6. to build the image before
+  - name: copy docker-compose.yml
+    copy:
+      src: app/
+      dest: /tmp/app
+  - name: test docker-compose
+    docker_compose:
+      project_name: mynginx
+      # project_src: tmp/
+      definition:
+        version: "3.7"
+        services:
+          app:
+            build: /tmp/app
+            ports:
+            - 8080:8080
