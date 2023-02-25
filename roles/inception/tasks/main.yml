@@ -1,0 +1,19 @@
+---
+# tasks file for roles/inception
+- name: Copy project files to the remote host
+  synchronize:
+    src: inception/
+    dest: /root/project
+    recursive: yes
+
+- name: make all
+  shell: |
+    make -C /root/project all
+
+
+- name: Start Docker Compose
+  docker_compose:
+    project_src: /root/project/srcs
+    state: present
+    build: yes
+    # detached: yes
