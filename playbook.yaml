@@ -18,20 +18,32 @@
       dest: /root/project
       recursive: yes
 
-  # - name: Install Docker and Docker Compose
-  #   apt:
-  #     name:
-  #       - docker.io
-  #       - docker-compose
-  #     state: present
-
   - name: make all
     shell: |
       make -C /root/project all
 
-  - name: Start Docker Compose
-    docker_compose:
-      project_src: /root/project/srcs
-      state: present
-      build: yes
-      # detached: yes
+  # - name: Start Docker Compose
+  #   docker_compose:
+  #     project_src: /root/project/srcs
+  #     state: present
+  #     restart_policy: always
+  #     build: yes
+  #     # detached: yes
+
+  - name: Create Docker Compose systemd service file
+    template:
+      src: docker-compose.service.j2
+      dest: /etc/systemd/system/docker-compose.service
+    notify:
+      - Reload systemd
+
+  - name: Enable and start Docker Compose systemd service
+    systemd:
+      name: docker-compose.service
+      enabled: true
+      state: started
+
+  handlers:
+    - name: Reload systemd
+      systemd:
+        daemon_reload: yes

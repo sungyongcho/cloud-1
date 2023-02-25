@@ -1,0 +1,5 @@
+- name: depeloy inception
+  hosts: all
+  become: yes
+  roles:
+  - docker
