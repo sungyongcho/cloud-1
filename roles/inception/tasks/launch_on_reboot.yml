@@ -1,6 +1,6 @@
 - name: Copy Inception service file
   template:
-    src: files/inception.service.j2
+    src: templates/inception.service.j2
     dest: /etc/systemd/system/inception.service
     mode: 0644
 
