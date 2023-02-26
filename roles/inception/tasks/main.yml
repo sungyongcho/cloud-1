@@ -17,3 +17,5 @@
     state: present
     build: yes
     # detached: yes
+
+- include_tasks: launch_on_reboot.yml

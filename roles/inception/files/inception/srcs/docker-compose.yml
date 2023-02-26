@@ -61,7 +61,7 @@ services:
     volumes:
       - wordpress_volume:/var/www/wordpress
     environment:
-      - WP_URL={{ ansible_host }}
+      - WP_URL=${WP_URL}
       - WP_DATABASE=${WP_DATABASE}
       - WP_TITLE=${WP_TITLE}
       - WP_ADMIN_USER=${WP_ADMIN_USER}
