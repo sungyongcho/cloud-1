@@ -1,4 +1,0 @@
-all:
-  hosts:
-    cloud-1:
-    vagrant:
