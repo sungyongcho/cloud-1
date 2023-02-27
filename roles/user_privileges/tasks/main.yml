@@ -1,0 +1,16 @@
+---
+# tasks file for roles/user_privileges
+- name: Get the value of current user
+  shell: echo $USER
+  register: current_user
+
+- name: Print the value of current user
+  debug:
+    msg: "The value of current user is {{ current_user.stdout }}"
+
+- name: Add current user to sudo group
+  become: yes
+  user:
+    name: "{{ current_user.stdout }}"
+    groups: sudo
+    append: yes

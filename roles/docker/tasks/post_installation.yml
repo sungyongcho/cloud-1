@@ -1,0 +1,14 @@
+- name: Create docker group
+  group:
+    name: docker
+    state: present
+
+- name: Add current user to docker group
+  user:
+    name: "{{ current_user.stdout }}"
+    groups: docker
+    append: yes
+
+- name: reset ssh connection to allow user changes to affect ansible user
+  ansible.builtin.meta:
+    reset_connection

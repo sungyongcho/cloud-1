@@ -1,0 +1,8 @@
+- name: Docker installation
+  become: yes
+  block:
+    - name: Install docker on the target host
+      include_tasks: installation.yml
+    ## TODO: this only needs to be run if the user is not root
+    - name: Post installation setup for docker to be run without sudo command
+      include_tasks: post_installation.yml
