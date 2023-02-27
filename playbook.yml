@@ -1,6 +1,0 @@
-- name: Depeloy inception
-  hosts: all
-  roles:
-  - user_privileges
-  - docker
-  - inception
