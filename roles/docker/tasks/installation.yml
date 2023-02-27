@@ -2,7 +2,6 @@
 # tasks file for roles/docker
 
 - name: Update apt cache
-  become: yes
   apt:
     update_cache: yes
 
@@ -33,25 +32,28 @@
     content: |
       deb [arch={{ deb_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
 
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
 - name: Install Docker
   apt:
     name: docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin
     state: present
 
-# - name: Download get-pip.py script
-#   get_url:
-#     url: https://bootstrap.pypa.io/get-pip.py
-#     dest: /tmp/get-pip.py
+- name: Download get-pip.py script
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp/get-pip.py
 
-# - name: Install pip using get-pip.py script
-#   shell: python3 /tmp/get-pip.py
+- name: Install pip using get-pip.py script
+  shell: python3 /tmp/get-pip.py
 
 - name: Install docker sdk
   apt:
     name: python3-docker, docker-compose
     update_cache: yes
     cache_valid_time: 3600
-  become: yes
 
 # - name: Download and install Docker Compose
 #   become: true
@@ -59,9 +61,9 @@
 #     docker_compose_version: 1.29.2
 #   shell: curl -L "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
 
-# - name: Install docker-compose python library
-#   pip:
-#     name: docker, docker-compose
-#     state: present
+- name: Install docker-compose python library
+  pip:
+    name: docker, docker-compose
+    state: present
 
 
