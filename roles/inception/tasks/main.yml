@@ -1,11 +1,27 @@
 ---
 # tasks file for roles/inception
 
+- name: Install required package
+  apt:
+    name: make
+    state: present
+
 - name: Copy project files to the remote host
   synchronize:
     src: inception/
     dest: "{{ ansible_env.HOME }}/project"
     recursive: yes
+
+- name: debugging
+  debug:
+    msg: "{{ansible_env.HOME}}"
+
+- name: Check user's home directory
+  command: echo $HOME
+  register: home_dir
+
+- debug:
+    var: home_dir.stdout
 
 - name: make all
   shell: |
@@ -17,5 +33,11 @@
     state: present
     build: yes
     # detached: yes
+  # become: yes
+  # become_user: "{{ current_user. stdout }}"
 
-- include_tasks: launch_on_reboot.yml
+- name: launch on reboot setup
+  become: yes
+  block:
+    - name: Include file with elevated privileges
+      include_tasks: launch_on_reboot.yml
