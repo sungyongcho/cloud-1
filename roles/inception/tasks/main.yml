@@ -5,6 +5,7 @@
   apt:
     name: make
     state: present
+  become: yes
 
 - name: Copy project files to the remote host
   synchronize:
