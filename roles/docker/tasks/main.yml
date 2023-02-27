@@ -21,11 +21,15 @@
     keyring: /etc/apt/keyrings/docker.gpg
     state: present
 
+- name: Get DEB architecture
+  shell: dpkg --print-architecture
+  register: deb_architecture
+
 - name: Create Docker repository file
   copy:
     dest: /etc/apt/sources.list.d/docker.list
     content: |
-      deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+      deb [arch={{ deb_architecture.stdout }} signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
 
 - name: Install Docker
   apt:
