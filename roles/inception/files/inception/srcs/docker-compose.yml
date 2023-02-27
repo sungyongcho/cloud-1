@@ -85,13 +85,13 @@ volumes:
   mariadb_volume:
     driver: local
     driver_opts:
-      device: /root/data/database
+      device: ${HOME}/data/database
       type: none
       o: bind
   wordpress_volume:
     driver: local
     driver_opts:
-      device: /root/data/wordpress
+      device: ${HOME}/data/wordpress
       type: none
       o: bind
 
