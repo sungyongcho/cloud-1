@@ -15,9 +15,9 @@ fi
 # https://developer.wordpress.org/cli/commands/config/set/
 # Sets the value of a specific constant or variable defined in wp-config.php file. Add the value if it doesn’t exist yet. This is the default behavior, override with –no-add.
 
-wp config set WP_SITEURL "https://51.159.158.14"
+# wp config set WP_SITEURL "https://localhost"
 
-wp config set WP_HOME "https://51.159.158.14"
+# wp config set WP_HOME "https://localhost"
 
 
 # Run the installation

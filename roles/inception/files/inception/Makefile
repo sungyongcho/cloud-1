@@ -6,13 +6,13 @@
 #    By: sucho <sucho@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/04 11:50:24 by cboutier          #+#    #+#              #
-#    Updated: 2023/02/25 23:58:19 by sucho            ###   ########.fr        #
+#    Updated: 2023/03/04 21:59:23 by sucho            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS 			= ./srcs
 DOCKER			= docker
-COMPOSE 		= cd srcs/ && docker-compose
+COMPOSE 		= cd srcs/ && docker compose
 DATA_PATH 		= $(HOME)/data
 
 all		:
