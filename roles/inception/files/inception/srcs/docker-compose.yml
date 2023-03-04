@@ -80,6 +80,18 @@ services:
       - front
     restart: on-failure
 
+  phpmyadmin:
+    build:
+      context: ./requirements/phpmyadmin/
+      dockerfile: Dockerfile
+    networks:
+      - front
+      - back
+    ports:
+      - "9999:9999"
+    restart: on-failure
+
+
 # https://medium.com/@alexanderyegorov_67403/docker-volumes-changes-in-compose-version-3-95a7c48f6d17
 volumes:
   mariadb_volume:

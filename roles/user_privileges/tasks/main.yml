@@ -10,6 +10,7 @@
 
 - name: Add current user to sudo group
   become: yes
+  when: current_user != 'root'
   user:
     name: "{{ current_user.stdout }}"
     groups: sudo
