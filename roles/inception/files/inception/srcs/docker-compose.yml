@@ -78,7 +78,7 @@ services:
     networks:
       - back
       - front
-    restart: on-failure
+    restart: always
 
   phpmyadmin:
     build:
