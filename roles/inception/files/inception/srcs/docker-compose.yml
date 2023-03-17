@@ -37,6 +37,9 @@ services:
 
   wordpress:
     container_name: "wordpress"
+    # added as ansible don't support depends_on (using older version docker-compose)
+    links:
+    - mariadb
     depends_on:
       - mariadb
     build:
