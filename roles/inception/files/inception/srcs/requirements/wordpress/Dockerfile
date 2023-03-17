@@ -6,7 +6,7 @@ RUN apt-get install -y curl
 RUN apt-get install -y mariadb-client
 RUN	apt-get install -y php7.3 php7.3-phar \
         php7.3-fpm php7.3-common php7.3-mysqli php7.3-iconv php7.3-json \
-        php7.3-mysqlnd
+        php7.3-mysqlnd netcat
 
 ENV WP_CLI_ALLOW_ROOT true
 
