@@ -1,4 +1,4 @@
-- name: Depeloy inception
+- name: Deploy inception
   hosts: all
   roles:
   - user_privileges
