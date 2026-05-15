@@ -27,7 +27,7 @@ chown -R www-data:www-data /var/www/wordpress/*
 #  Modify www.conf file, to listen to port 9000
 sed -i "s|listen = /run/php/php7.3-fpm.sock|listen = 9000|g" /etc/php/7.3/fpm/pool.d/www.conf
 
-# Needed, otherwise, cboutier.42.fr redirects to example.com/...
+# Needed in this demo setup to avoid deployment-specific redirects.
 # https://developer.wordpress.org/cli/commands/config/set/
 # Sets the value of a specific constant or variable defined in wp-config.php file. Add the value if it doesn’t exist yet. This is the default behavior, override with –no-add.
 
