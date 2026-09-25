@@ -1,12 +1,12 @@
 # cloud-1
 
-> Remote infrastructure provisioning with Ansible, Docker Compose, TLS, and restart-on-boot automation.
+> Ansible roles that deploy a Docker Compose WordPress stack (Nginx TLS, MariaDB) to a remote Ubuntu host and start it at boot with systemd.
 
 ## Overview
 
 An infrastructure automation project that provisions a Linux host and deploys a containerized WordPress platform. The goal is to make server setup reproducible: install Docker, configure user privileges, copy the application stack, build services, start Docker Compose, and register a systemd unit so the stack comes back after reboot.
 
-This project was built as part of the 42 school system administration / cloud curriculum with [Christie Boutier](https://github.com/christie-b).
+A 42 Paris pair project with [Christie Boutier](https://github.com/christie-b), Feb - Mar 2023. The Compose stack (Nginx TLS, WordPress/PHP-FPM, MariaDB) is Christie's 42 Inception project; I wrote the Ansible roles, the systemd boot unit and the phpMyAdmin service.
 
 ## Tech Stack
 
@@ -41,7 +41,7 @@ cloud-1/
 |   |-- user_privileges/         # Remote user and Docker group setup
 |   |-- docker/                  # Docker repository and engine installation
 |   `-- inception/
-|       |-- tasks/               # Deployment and restart-on-boot tasks
+|       |-- tasks/               # Deployment and boot-time start tasks
 |       |-- templates/           # systemd service template
 |       `-- files/inception/srcs/
 |           |-- docker-compose.yml
@@ -106,8 +106,8 @@ vagrant up
 ## What This Demonstrates
 
 - **Infrastructure Automation**: Provisioned a remote Linux host through Ansible roles instead of manual setup.
-- **Containerized Deployment**: Built and orchestrated a multi-service application stack with Docker Compose.
-- **Operational Reliability**: Added TLS setup, persistent volumes, and systemd restart-on-boot behavior for a self-hosted service.
+- **Containerized Deployment**: Deployed and orchestrated a multi-service application stack with Docker Compose.
+- **Operational Reliability**: TLS, persistent volumes, and a systemd unit that starts the stack at boot.
 
 ## License
 
